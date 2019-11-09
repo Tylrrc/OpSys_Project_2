@@ -42,18 +42,18 @@ pthread_cond_t status_cv;
 Deck* deck = new Deck;
 int round_status = NO_WINNER;
 
-void init_deck(Deck*&);
-void shuffle_deck(Deck*&, const int = 1);
-void deal_round(Player* player[], const int);
+void init_deck(Deck*&);//
+void shuffle_deck(Deck*&, const int = 1);//
+void deal_round(Player* player[], const int);//
 void print_game_status(const Player* const player[], const int);
-void print_deck(const Deck*, const int print_option = 0);
+void print_deck(const Deck*, const int print_option = 0);//
 void print_hand(const Player* p, const int print_option = 0);
 void player_draw(Player*& p, Deck*& d);
 void player_discard(Player*&, Deck*&);
 void push_back_deck(Deck*&, const int);
-int pop_front_deck();
+int pop_front_deck();//
 void* player_makes_move(void*);
-void exit_round(Player*& p);
+void exit_round(Player*& p);//
 void log_event(const string);
 
 //argc specified the number of elements in argv

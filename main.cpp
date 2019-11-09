@@ -12,6 +12,24 @@
 #define SHUFFLE_COUNT 3
 #define INITIAL_HAND_CAP 1
 
+void create_deck();
+void print_deck();
+void shuffle_deck();
+void push(int *arr, int index, int value, int *size, int *capacity);
+void deal_cards();
+void end_of_round();
+void print_hand();
+
+
+/*
+void print_game_status(const Player* const player[], const int);
+void player_draw(Player*& p, Deck*& d);
+void player_discard(Player*&, Deck*&);
+void push_back_deck(Deck*&, const int);
+void* player_makes_move(void*);
+void log_event(const string);
+*/
+
 struct Player
 {
     int PlayerNumber;
@@ -32,6 +50,9 @@ pthread_t threads[THREAD_COUNT];
 
 pthread_mutex_t deck_mutex;
 pthread_mutex_t status_mutex;
+pthread_cond_t status;
+
+bool WIN = false;
 
 void create_deck(){
    int i = 0;
@@ -43,9 +64,20 @@ void create_deck(){
 }
 
 void print_deck(){
-   printf("\nDECK CONTAINS: \n\n");
+   printf("\nDECK CONTAINS: ");
    for(int i = 0; i <= CURRENT_DECK_SIZE; ++i){
       printf("%i ", Deck[i]);
+   }
+}
+
+void print_hand(){
+   for(int i = 0; i < PLAYER_COUNT; ++i){
+      printf("\nPLAYER %i\n", player_threads[i]->PlayerNumber);
+      printf("CARDS IN HAND: ");
+   for(int j = 0; j < player_threads[i]->hand_size; ++j){
+      printf(" %i ", player_threads[i]->hand[j]);
+      }
+      printf("\n");
    }
 }
 
@@ -72,20 +104,48 @@ void push(int *arr, int index, int value, int *size, int *capacity){
      *size = *size + 1;
 }
 
-void deal_cards(Player* p[]){
-   //printf("( %i )", Deck[CURRENT_DECK_SIZE]);
+void deal(){
    for(int i = 0; i < PLAYER_COUNT; ++i){ 
-         push(p[i]->hand, p[i]->hand_size, Deck[CURRENT_DECK_SIZE--], &p[i]->hand_size, &p[i]->hand_capacity);
+         push(player_threads[i]->hand, player_threads[i]->hand_size, Deck[CURRENT_DECK_SIZE--], &player_threads[i]->hand_size, &player_threads[i]->hand_capacity);
          //printf("%i ", p[i]->hand[0]);
    }
 }
 
-void end_of_round(Player *p[]){
+void end_of_round(){
    for(int i = 0; i < PLAYER_COUNT; ++i){
-      free(p[i]->hand);
-      p[i]->hand_capacity = 0;
-      p[i]->hand_size = 0;
+      free(player_threads[i]->hand);
+      player_threads[i]->hand_capacity = 0;
+      player_threads[i]->hand_size = 0;
    }
+
+   //also reset the deck size!!!
+}
+
+void draw(Player* p){
+   push(p->hand, p->hand_size, Deck[CURRENT_DECK_SIZE--], &p->hand_size, &p->hand_capacity);
+}
+
+/*
+void discard(Player* &p){
+   void;
+}
+*/
+
+void* turn(void* player){
+   Player* p = (Player*)player;
+   pthread_mutex_lock(&deck_mutex);
+   if (p->hand_size >= 2){
+//      discard(p);
+      print_hand();
+   }
+   draw(p);
+   print_hand();
+   pthread_mutex_lock(&status_mutex);
+   if(p->hand[0] == p->hand[1]){
+      pthread_cond_signal(&status);
+      WIN = true;
+      printf("\nPlayer %i wins!\n", p->PlayerNumber);   
+      }
 }
 
 int main(int argc, char *argv[]){
@@ -118,21 +178,46 @@ int main(int argc, char *argv[]){
       return -1;
    }
 
-
    for (int round = 1; round <= ROUND_COUNT; ++round){
       CURRENT_DECK_SIZE = FULL_DECK - 1;
       create_deck();
       printf("\n\n******** ROUND %i ********\n", round);
       shuffle_deck();
-      deal_cards(player_threads);
-      deal_cards(player_threads);
+      deal();
 
-      printf("HAND SIZE == %i",player_threads[0]->hand_size);
+      print_hand();
       print_deck();
 
-      end_of_round(player_threads);
+      while(!WIN){
+         for(int i = 0; i < THREAD_COUNT; ++i){
+            pthread_create(&threads[i], NULL, turn, (void *)player_threads[i]);
+         }
+         
+         for(int i = 0; i < THREAD_COUNT; ++i){
+            if (pthread_join(threads[i], NULL)){
+               return -1;
+            }
+           
+            
+         //printf("IS THIS THE LOOP WE'RE STUCK INSIDE?"); // Answer: YES!!!!!
+         }
+      
+
+      end_of_round();
 
    }
 
    return 0;
 }
+}
+
+/*
+TODO: Implement remaining functions (See prototype list)
+TODO: Add comments
+TODO: Implement gameplay portion
+TODO: The 'WIN' variable isn't getting triggered. 
+      There are likely several issues to be addressed in 'turn' function...
+      The main while loop becomes infinite...
+      Compare closely with sample code to get a better idea of what's going wrong.
+
+*/
