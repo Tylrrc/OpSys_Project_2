@@ -122,6 +122,7 @@ void end_of_round(){
 }
 
 void draw(Player* p){
+   printf("\nPLAYER %i DRAWS\n", p->PlayerNumber);
    push(p->hand, p->hand_size, Deck[CURRENT_DECK_SIZE--], &p->hand_size, &p->hand_capacity);
 }
 
@@ -190,6 +191,7 @@ int main(int argc, char *argv[]){
 
       while(!WIN){
          for(int i = 0; i < THREAD_COUNT; ++i){
+            printf("THREAD LOOP: %i",i);
             pthread_create(&threads[i], NULL, turn, (void *)player_threads[i]);
          }
          

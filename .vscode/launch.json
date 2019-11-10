@@ -6,11 +6,12 @@
     "configurations": [
         
         
+        
         {
             "name": "g++ build and debug active file",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "program": "OpSys_Project_2.o",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
