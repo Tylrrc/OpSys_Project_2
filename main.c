@@ -1,5 +1,8 @@
 /*
-
+TODO: Address seg fault after 2nd round
+TODO: Reformat to include output to file
+TODO: vector_bottom() seems off. conform that logic is correct
+TODO: Ensure there are no 'off by 1' errors in program
 */
 
 #include <stdlib.h> //random number generator functions
@@ -196,10 +199,6 @@ int main(int argc, char *argv[]){
 
    for (int round = 1; round <= ROUND_COUNT; ++round){
       create_deck();
-
-      //vector_bottom(&Deck, 5);
-
-      //printf("SIZE OF DECK: %i", vector_total(&Deck));
 
       printf("\n---------- ROUND %i ----------\n", round);
 

@@ -36,7 +36,7 @@ void vector_add(vector *v, void *item)
 }
 
 void vector_bottom(vector *v, int item){
-    printf("$$$$$$$$$$$$$%i&&&&&&&&&&&&&", vector_total(&v));
+    printf("$$$$$$$$$$$$$ %i &&&&&&&&&&&&&", vector_total(&v));
     int shift[vector_total(&v)+1];
     shift[0] = item;
 
