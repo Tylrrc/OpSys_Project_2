@@ -147,6 +147,11 @@ void* turn(void* player){
       WIN = true;
       printf("\nPlayer %i wins!\n", p->PlayerNumber);   
       }
+
+   pthread_mutex_unlock(&status_mutex);
+   pthread_mutex_unlock(&deck_mutex);
+
+   //pthread_exit(NULL);
 }
 
 int main(int argc, char *argv[]){
@@ -189,19 +194,19 @@ int main(int argc, char *argv[]){
       print_hand();
       print_deck();
 
+      int ex;
+
       while(!WIN){
          for(int i = 0; i < THREAD_COUNT; ++i){
-            printf("THREAD LOOP: %i",i);
-            pthread_create(&threads[i], NULL, turn, (void *)player_threads[i]);
+            ex = pthread_create(&threads[i], NULL, turn, (void *)player_threads[i]);
+            if (ex){ return -1;}
+
          }
          
          for(int i = 0; i < THREAD_COUNT; ++i){
             if (pthread_join(threads[i], NULL)){
                return -1;
             }
-           
-            
-         //printf("IS THIS THE LOOP WE'RE STUCK INSIDE?"); // Answer: YES!!!!!
          }
       
 
@@ -217,9 +222,7 @@ int main(int argc, char *argv[]){
 TODO: Implement remaining functions (See prototype list)
 TODO: Add comments
 TODO: Implement gameplay portion
-TODO: The 'WIN' variable isn't getting triggered. 
-      There are likely several issues to be addressed in 'turn' function...
-      The main while loop becomes infinite...
-      Compare closely with sample code to get a better idea of what's going wrong.
+TODO: Need to implement deck push/pop
+TODO: Need to implement hand pop
 
 */

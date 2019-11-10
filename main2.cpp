@@ -47,12 +47,12 @@ void shuffle_deck(Deck*&, const int = 1);//
 void deal_round(Player* player[], const int);//
 void print_game_status(const Player* const player[], const int);
 void print_deck(const Deck*, const int print_option = 0);//
-void print_hand(const Player* p, const int print_option = 0);
-void player_draw(Player*& p, Deck*& d);
-void player_discard(Player*&, Deck*&);
+void print_hand(const Player* p, const int print_option = 0);//
+void player_draw(Player*& p, Deck*& d);//
+void player_discard(Player*&, Deck*&);//
 void push_back_deck(Deck*&, const int);
-int pop_front_deck();//
-void* player_makes_move(void*);
+int pop_front_deck();
+void* player_makes_move(void*);//
 void exit_round(Player*& p);//
 void log_event(const string);
 
