@@ -71,7 +71,9 @@ void discard(struct Player* p){
    vector_add(&Deck, vector_get(&p->Hand,discardee));
    
    //Insert discarded card at bottom of deck
-   vector_bottom(&Deck, vector_get(&p->Hand,discardee));
+   //vector_bottom(&Deck, vector_get(&p->Hand,discardee));
+
+   shuffle_deck();
 
 
    vector_delete(&p->Hand, discardee);
@@ -224,9 +226,8 @@ int main(int argc, char *argv[]){
          }
       }
 
-      for (int i = 0; i < THREAD_COUNT; ++i){
-         end_round();
-      }
+      end_round();
+      
       WIN = false;
    }
    pthread_mutex_destroy(&deck_mutex);
