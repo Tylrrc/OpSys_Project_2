@@ -10,6 +10,7 @@ TODO: Ensure there are no 'off by 1' errors in program
 #include <stdio.h>
 #include <pthread.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 #include "vector.h"
 
@@ -20,7 +21,6 @@ TODO: Ensure there are no 'off by 1' errors in program
 #define RANKS 13
 #define SUITS 4
 #define SHUFFLE_COUNT 3
-#define INITIAL_HAND_CAP 1
 
 int SEED;
 bool WIN = false;
@@ -51,12 +51,15 @@ void deal(struct Player*);
 void end_round();
 
 void draw(struct Player* p){
-   int drawn = vector_get(&Deck, vector_total(&Deck)-1);
+   //int t = vector_total(&Deck) - 1;
+   long drawn = (long)vector_get(&Deck, vector_total(&Deck) - 1);
    printf("\nPLAYER %i DRAWS: ", p->PlayerNumber);
    printf("%i\n", drawn);
 
-   vector_add(&p->Hand, drawn);
+   vector_add(&p->Hand, (void *)drawn);
    vector_delete(&Deck, vector_total(&Deck)-1);
+
+   print_deck();
 }
 
 void discard(struct Player* p){
@@ -66,9 +69,9 @@ void discard(struct Player* p){
    int discardee = rand() % vector_total(&p->Hand);
 
    printf("\nPLAYER %i DISCARDS: ", p->PlayerNumber);
-   printf("%i\n", vector_get(&p->Hand,discardee));
+   printf("%ld\n", (long)vector_get(&p->Hand,discardee));
 
-   vector_add(&Deck, vector_get(&p->Hand,discardee));
+   vector_add(&Deck, (int)vector_get(&p->Hand,rand()%vector_total(&p->Hand)));
    
    //Insert discarded card at bottom of deck
    //vector_bottom(&Deck, vector_get(&p->Hand,discardee));
@@ -77,6 +80,8 @@ void discard(struct Player* p){
 
 
    vector_delete(&p->Hand, discardee);
+
+   print_deck();
 }
 
 void* turn(void* pl){
@@ -88,13 +93,14 @@ void* turn(void* pl){
 
    if(vector_total(&p->Hand) >= 2){
       discard(p);
+      print_hand(p);
    }
 
    draw(p);
    print_hand(p);
    pthread_mutex_lock(&status_mutex);
 
-   if(vector_get(&p->Hand, 0) == vector_get(&p->Hand, 1)){
+   if((int)vector_get(&p->Hand, 0) == (int)vector_get(&p->Hand, 1)){
       pthread_cond_signal(&status);
       WIN = true;
       printf("\nPLAYER %i WINS!!!\n", p->PlayerNumber);
@@ -108,7 +114,7 @@ void* turn(void* pl){
 void print_hand(struct Player* p){
    printf("\nPLAYER %i HAND CONTAINS:\n", p->PlayerNumber);
    for(int i = 0; i < vector_total(&p->Hand); ++i){
-      printf(" %i ", (int *) vector_get(&p->Hand, i));
+      printf(" %ld ", (long)vector_get(&p->Hand, i));
    }
    printf("\n");
 }
@@ -116,20 +122,20 @@ void print_hand(struct Player* p){
 void print_deck(){
    printf("\nDECK CONTAINS:\n");
    for(int i = 0; i < vector_total(&Deck); ++i){
-      printf(" %i ", (int *) vector_get(&Deck, i));
+      printf(" %ld ", (long)vector_get(&Deck, i));
    }
    printf("\n");
 }
 
 void shuffle_deck(){
    int swap, temp;
-   srand(SEED);
+   //srand(SEED);
    for(int i = 0; i < SHUFFLE_COUNT; ++i)
-      for(int j = 0; j < FULL_DECK; ++j){
-         swap = rand() % FULL_DECK;
-         temp = vector_get(&Deck, j);
+      for(int j = 0; j < vector_total(&Deck); ++j){
+         swap = rand() % vector_total(&Deck);
+         temp = (long)vector_get(&Deck, j);
          vector_set(&Deck, j, vector_get(&Deck, swap));
-         vector_set(&Deck, swap, temp);
+         vector_set(&Deck, swap, (void *)temp);
    }
 }
 
@@ -152,16 +158,23 @@ void deal(struct Player* p){
 }
 
 void end_round(){
+   
    vector_free(&Deck);
 
-   struct Player* p1 = vector_get(&players, 0);
+   struct Player* p1 = (struct Player *)vector_get(&players, 0);
    vector_free(&p1->Hand);
 
-   struct Player* p2 = vector_get(&players, 1);
+   struct Player* p2 = (struct Player *)vector_get(&players, 1);
    vector_free(&p2->Hand);
 
-   struct Player* p3 = vector_get(&players, 2);
+   struct Player* p3 = (struct Player *)vector_get(&players, 2);
    vector_free(&p3->Hand);
+
+   /*&
+   for(int i = 0; i < PLAYER_COUNT; ++i){
+      vector_free(vector_get(&players, i));
+   }
+   */
 }
 
 int main(int argc, char *argv[]){
@@ -205,8 +218,8 @@ int main(int argc, char *argv[]){
       printf("\n---------- ROUND %i ----------\n", round);
 
       for(int i = 0; i < PLAYER_COUNT; ++i){
-         deal(vector_get(&players, i));
-         print_hand(vector_get(&players, i));
+         deal((struct Player *)vector_get(&players, i));
+         print_hand((struct Player *)vector_get(&players, i));
       }
       print_deck();
 
@@ -214,7 +227,7 @@ int main(int argc, char *argv[]){
 
       while(!WIN){
          for(int i = 0; i < THREAD_COUNT; ++i){
-            esc = pthread_create(&threads[i], NULL, turn, (void *)vector_get(&players, i));
+            esc = pthread_create(&threads[i], NULL, turn, (vector *)vector_get(&players, i));
             if (esc){ printf("FAILED TO CREATE THREAD");return -1; }
          }
 
