@@ -21,6 +21,7 @@ TODO: Ensure there are no 'off by 1' errors in program
 #define RANKS 13
 #define SUITS 4
 #define SHUFFLE_COUNT 3
+#define LOGGING 1
 
 int SEED;
 bool WIN = false;
@@ -40,11 +41,14 @@ pthread_mutex_t deck_mutex;
 pthread_mutex_t status_mutex;
 pthread_cond_t status;
 
+FILE *fileptr;
+
 void draw(struct Player*);
 void discard(struct Player*);
 void* turn(void*);
 void print_hand(struct Player*);
 void print_deck();
+void log_deck();
 void shuffle_deck();
 void create_deck();
 void deal(struct Player*);
@@ -55,6 +59,10 @@ void draw(struct Player* p){
    long drawn = (long)vector_get(&Deck, vector_total(&Deck) - 1);
    printf("\nPLAYER %i DRAWS: ", p->PlayerNumber);
    printf("%i\n", drawn);
+   if (LOGGING) {
+       fprintf(fileptr, "PLAYER %i: draws ", p->PlayerNumber);
+       fprintf(fileptr, "%i", drawn);
+   }
 
    vector_add(&p->Hand, (void *)drawn);
    vector_delete(&Deck, vector_total(&Deck)-1);
@@ -70,6 +78,11 @@ void discard(struct Player* p){
 
    printf("\nPLAYER %i DISCARDS: ", p->PlayerNumber);
    printf("%ld\n", (long)vector_get(&p->Hand,discardee));
+
+   if (LOGGING) {
+       fprintf(fileptr, "PLAYER %i: discards ", p->PlayerNumber);
+       fprintf(fileptr, "%ld\n", (long)vector_get(&p->Hand,discardee));
+   }
 
    vector_add(&Deck, (int)vector_get(&p->Hand,rand()%vector_total(&p->Hand)));
    
@@ -104,6 +117,9 @@ void* turn(void* pl){
       pthread_cond_signal(&status);
       WIN = true;
       printf("\nPLAYER %i WINS!!!\n", p->PlayerNumber);
+      if (LOGGING) {
+          fprintf(fileptr, "\nPLAYER %i: wins and exits\n", p->PlayerNumber);
+      }
    }
    pthread_mutex_unlock(&status_mutex);
    pthread_mutex_unlock(&deck_mutex);
@@ -117,14 +133,32 @@ void print_hand(struct Player* p){
       printf(" %ld ", (long)vector_get(&p->Hand, i));
    }
    printf("\n");
+
+   if (LOGGING) {
+       fprintf(fileptr, "\nPLAYER %i: hand is", p->PlayerNumber);
+       for(int i = 0; i < vector_total(&p->Hand); ++i){
+           fprintf(fileptr, " %ld", (long)vector_get(&p->Hand, i));
+       }
+       fprintf(fileptr, "\n");
+   }
 }
 
 void print_deck(){
-   printf("\nDECK CONTAINS:\n");
+   printf("\nDECK:\n");
    for(int i = 0; i < vector_total(&Deck); ++i){
       printf(" %ld ", (long)vector_get(&Deck, i));
    }
    printf("\n");
+}
+
+void log_deck() {
+    if (LOGGING) {
+        fprintf(fileptr, "DECK:");
+        for(int i = 0; i < vector_total(&Deck); ++i){
+            fprintf(fileptr, " %ld", (long)vector_get(&Deck, i));
+        }
+        // fprintf(fileptr, "\n");
+    }
 }
 
 void shuffle_deck(){
@@ -137,6 +171,8 @@ void shuffle_deck(){
          vector_set(&Deck, j, vector_get(&Deck, swap));
          vector_set(&Deck, swap, (void *)temp);
    }
+
+   if (LOGGING) {fprintf(fileptr, "DEALER: shuffles\n");}
 }
 
 void create_deck(){
@@ -155,6 +191,7 @@ void deal(struct Player* p){
    vector_init(&p->Hand);
    vector_add(&p->Hand, vector_get(&Deck, vector_total(&Deck)-1));
    vector_delete(&Deck, vector_total(&Deck)-1);
+   if (LOGGING) {fprintf(fileptr, "DEALER: deals to PLAYER %i", p->PlayerNumber);}
 }
 
 void end_round(){
@@ -175,6 +212,17 @@ void end_round(){
       vector_free(vector_get(&players, i));
    }
    */
+
+   printf("ROUND END:");
+
+   if (LOGGING) {
+       fprintf(fileptr, "ROUND END STATE:\n");
+       print_hand(p1);
+       print_hand(p2);
+       print_hand(p3);
+       print_deck();
+       log_deck();
+   }
 }
 
 int main(int argc, char *argv[]){
@@ -184,6 +232,10 @@ int main(int argc, char *argv[]){
       printf("Example:\n\n"); 
       printf("%s 3\n\n", argv[0]);
       return 1;
+   }
+
+   if (LOGGING) {
+       fileptr = fopen("log.txt", "w");
    }
 
    srand(atoi(argv[1]));
@@ -243,6 +295,8 @@ int main(int argc, char *argv[]){
       
       WIN = false;
    }
+
+   fclose(fileptr);
    pthread_mutex_destroy(&deck_mutex);
    pthread_mutex_destroy(&status_mutex);
    pthread_exit(NULL);
