@@ -1,0 +1,213 @@
+DEALER: shuffles
+DEALER: deals to PLAYER 1
+PLAYER 1: hand is 7
+DEALER: deals to PLAYER 2
+PLAYER 2: hand is 1
+DEALER: deals to PLAYER 3
+PLAYER 3: hand is 7
+PLAYER 1: draws 9
+PLAYER 1: hand is 7 9
+PLAYER 2: draws 6
+PLAYER 2: hand is 1 6
+PLAYER 3: draws 9
+PLAYER 3: hand is 7 9
+PLAYER 1: discards 9
+DEALER: shuffles
+
+PLAYER 1: hand is 7
+PLAYER 1: draws 8
+PLAYER 1: hand is 7 8
+PLAYER 2: discards 6
+DEALER: shuffles
+
+PLAYER 2: hand is 1
+PLAYER 2: draws 2
+PLAYER 2: hand is 1 2
+PLAYER 3: discards 9
+DEALER: shuffles
+
+PLAYER 3: hand is 7
+PLAYER 3: draws 8
+PLAYER 3: hand is 7 8
+PLAYER 1: discards 8
+DEALER: shuffles
+
+PLAYER 1: hand is 7
+PLAYER 1: draws 3
+PLAYER 1: hand is 7 3
+PLAYER 2: discards 2
+DEALER: shuffles
+
+PLAYER 2: hand is 1
+PLAYER 2: draws 4
+PLAYER 2: hand is 1 4
+PLAYER 3: discards 8
+DEALER: shuffles
+
+PLAYER 3: hand is 7
+PLAYER 3: draws 4
+PLAYER 3: hand is 7 4
+PLAYER 1: discards 3
+DEALER: shuffles
+
+PLAYER 1: hand is 7
+PLAYER 1: draws 13
+PLAYER 1: hand is 7 13
+PLAYER 2: discards 4
+DEALER: shuffles
+
+PLAYER 2: hand is 1
+PLAYER 2: draws 1
+PLAYER 2: hand is 1 1
+
+PLAYER 2: wins and exits
+PLAYER 3: discards 4
+DEALER: shuffles
+
+PLAYER 3: hand is 7
+PLAYER 3: draws 6
+PLAYER 3: hand is 7 6
+ROUND END STATE:
+
+PLAYER 1: hand is 7 13
+
+PLAYER 2: hand is 1 1
+
+PLAYER 3: hand is 7 6
+DECK: 9 6 1 7 3 5 12 11 4 6 8 3 9 10 6 13 5 11 10 4 4 1 4 12 11 2 13 7 8 5 8 12 3 10 13 11 10 9 2 2 12 3 2 5 8 9
+DEALER: shuffles
+DEALER: deals to PLAYER 1
+PLAYER 1: hand is 8
+DEALER: deals to PLAYER 2
+PLAYER 2: hand is 11
+DEALER: deals to PLAYER 3
+PLAYER 3: hand is 11
+PLAYER 1: draws 13
+PLAYER 1: hand is 8 13
+PLAYER 2: draws 13
+PLAYER 2: hand is 11 13
+PLAYER 3: draws 5
+PLAYER 3: hand is 11 5
+PLAYER 1: discards 13
+DEALER: shuffles
+
+PLAYER 1: hand is 8
+PLAYER 1: draws 1
+PLAYER 1: hand is 8 1
+PLAYER 2: discards 13
+DEALER: shuffles
+
+PLAYER 2: hand is 11
+PLAYER 2: draws 3
+PLAYER 2: hand is 11 3
+PLAYER 3: discards 5
+DEALER: shuffles
+
+PLAYER 3: hand is 11
+PLAYER 3: draws 4
+PLAYER 3: hand is 11 4
+PLAYER 1: discards 1
+DEALER: shuffles
+
+PLAYER 1: hand is 8
+PLAYER 1: draws 10
+PLAYER 1: hand is 8 10
+PLAYER 2: discards 3
+DEALER: shuffles
+
+PLAYER 2: hand is 11
+PLAYER 2: draws 6
+PLAYER 2: hand is 11 6
+PLAYER 3: discards 4
+DEALER: shuffles
+
+PLAYER 3: hand is 11
+PLAYER 3: draws 6
+PLAYER 3: hand is 11 6
+PLAYER 1: discards 10
+DEALER: shuffles
+
+PLAYER 1: hand is 8
+PLAYER 1: draws 10
+PLAYER 1: hand is 8 10
+PLAYER 2: discards 6
+DEALER: shuffles
+
+PLAYER 2: hand is 11
+PLAYER 2: draws 4
+PLAYER 2: hand is 11 4
+PLAYER 3: discards 6
+DEALER: shuffles
+
+PLAYER 3: hand is 11
+PLAYER 3: draws 7
+PLAYER 3: hand is 11 7
+PLAYER 1: discards 10
+DEALER: shuffles
+
+PLAYER 1: hand is 8
+PLAYER 1: draws 13
+PLAYER 1: hand is 8 13
+PLAYER 2: discards 4
+DEALER: shuffles
+
+PLAYER 2: hand is 11
+PLAYER 2: draws 11
+PLAYER 2: hand is 11 11
+
+PLAYER 2: wins and exits
+PLAYER 3: discards 7
+DEALER: shuffles
+
+PLAYER 3: hand is 11
+PLAYER 3: draws 9
+PLAYER 3: hand is 11 9
+ROUND END STATE:
+
+PLAYER 1: hand is 8 13
+
+PLAYER 2: hand is 11 11
+
+PLAYER 3: hand is 11 9
+DECK: 2 8 12 7 3 6 13 2 4 3 10 8 5 4 9 9 5 6 13 12 7 3 7 5 12 12 10 9 6 1 8 10 10 2 3 1 2 4 6 13 5 7 4 1 11 1
+DEALER: shuffles
+DEALER: deals to PLAYER 1
+PLAYER 1: hand is 6
+DEALER: deals to PLAYER 2
+PLAYER 2: hand is 9
+DEALER: deals to PLAYER 3
+PLAYER 3: hand is 5
+PLAYER 1: draws 2
+PLAYER 1: hand is 6 2
+PLAYER 2: draws 6
+PLAYER 2: hand is 9 6
+PLAYER 3: draws 10
+PLAYER 3: hand is 5 10
+PLAYER 1: discards 2
+DEALER: shuffles
+
+PLAYER 1: hand is 6
+PLAYER 1: draws 11
+PLAYER 1: hand is 6 11
+PLAYER 2: discards 6
+DEALER: shuffles
+
+PLAYER 2: hand is 9
+PLAYER 2: draws 9
+PLAYER 2: hand is 9 9
+
+PLAYER 2: wins and exits
+PLAYER 3: discards 10
+DEALER: shuffles
+
+PLAYER 3: hand is 5
+PLAYER 3: draws 4
+PLAYER 3: hand is 5 4
+ROUND END STATE:
+
+PLAYER 1: hand is 6 11
+
+PLAYER 2: hand is 9 9
+
+PLAYER 3: hand is 5 4
+DECK: 10 7 11 10 6 11 12 7 6 3 11 1 12 9 12 2 5 7 5 12 10 9 4 8 1 4 13 10 5 3 1 3 2 7 2 13 8 4 2 13 6 8 13 3 1 8

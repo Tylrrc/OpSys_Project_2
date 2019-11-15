@@ -1,0 +1,129 @@
+DEALER: shuffles
+DEALER: deals to PLAYER 1
+PLAYER 1: hand is 11
+DEALER: deals to PLAYER 2
+PLAYER 2: hand is 12
+DEALER: deals to PLAYER 3
+PLAYER 3: hand is 5
+PLAYER 1: draws 13
+PLAYER 1: hand is 11 13
+PLAYER 2: draws 8
+PLAYER 2: hand is 12 8
+PLAYER 3: draws 1
+PLAYER 3: hand is 5 1
+PLAYER 1: discards 13
+DEALER: shuffles
+
+PLAYER 1: hand is 11
+PLAYER 1: draws 5
+PLAYER 1: hand is 11 5
+PLAYER 2: discards 8
+DEALER: shuffles
+
+PLAYER 2: hand is 12
+PLAYER 2: draws 9
+PLAYER 2: hand is 12 9
+PLAYER 3: discards 1
+DEALER: shuffles
+
+PLAYER 3: hand is 5
+PLAYER 3: draws 12
+PLAYER 3: hand is 5 12
+PLAYER 1: discards 5
+DEALER: shuffles
+
+PLAYER 1: hand is 11
+PLAYER 1: draws 11
+PLAYER 1: hand is 11 11
+
+PLAYER 1: wins and exits
+PLAYER 2: discards 9
+DEALER: shuffles
+
+PLAYER 2: hand is 12
+PLAYER 2: draws 3
+PLAYER 2: hand is 12 3
+ROUND END STATE:
+
+PLAYER 1: hand is 11 11
+
+PLAYER 2: hand is 12 3
+
+PLAYER 3: hand is 5 12
+DECK: 11 1 4 13 2 10 7 2 5 5 6 2 6 9 7 3 7 13 4 1 9 3 7 2 1 9 13 6 8 8 4 11 1 8 12 10 5 10 13 3 4 10 8 6 12 9
+DEALER: shuffles
+DEALER: deals to PLAYER 1
+PLAYER 1: hand is 12
+DEALER: deals to PLAYER 2
+PLAYER 2: hand is 10
+DEALER: deals to PLAYER 3
+PLAYER 3: hand is 4
+PLAYER 1: draws 3
+PLAYER 1: hand is 12 3
+PLAYER 2: draws 10
+PLAYER 2: hand is 10 10
+
+PLAYER 2: wins and exits
+PLAYER 3: draws 1
+PLAYER 3: hand is 4 1
+ROUND END STATE:
+
+PLAYER 1: hand is 12 3
+
+PLAYER 2: hand is 10 10
+
+PLAYER 3: hand is 4 1
+DECK: 7 1 8 8 13 13 9 6 2 2 2 4 7 7 6 3 11 11 11 10 4 8 5 6 5 4 3 6 5 9 12 3 1 1 5 2 13 11 12 9 10 13 12 8 9 7
+DEALER: shuffles
+DEALER: deals to PLAYER 1
+PLAYER 1: hand is 9
+DEALER: deals to PLAYER 2
+PLAYER 2: hand is 5
+DEALER: deals to PLAYER 3
+PLAYER 3: hand is 8
+PLAYER 1: draws 1
+PLAYER 1: hand is 9 1
+PLAYER 2: draws 10
+PLAYER 2: hand is 5 10
+PLAYER 3: draws 2
+PLAYER 3: hand is 8 2
+PLAYER 1: discards 1
+DEALER: shuffles
+
+PLAYER 1: hand is 9
+PLAYER 1: draws 4
+PLAYER 1: hand is 9 4
+PLAYER 2: discards 10
+DEALER: shuffles
+
+PLAYER 2: hand is 5
+PLAYER 2: draws 13
+PLAYER 2: hand is 5 13
+PLAYER 3: discards 2
+DEALER: shuffles
+
+PLAYER 3: hand is 8
+PLAYER 3: draws 12
+PLAYER 3: hand is 8 12
+PLAYER 1: discards 4
+DEALER: shuffles
+
+PLAYER 1: hand is 9
+PLAYER 1: draws 9
+PLAYER 1: hand is 9 9
+
+PLAYER 1: wins and exits
+PLAYER 2: discards 13
+DEALER: shuffles
+
+PLAYER 2: hand is 5
+PLAYER 2: draws 13
+PLAYER 2: hand is 5 13
+ROUND END STATE:
+
+PLAYER 1: hand is 9 9
+
+PLAYER 2: hand is 5 13
+
+PLAYER 3: hand is 8 12
+DECK: 7 12 3 9 10 3 12 5 4 7 5 11 7 1 4 9 13 11 3 1 13 2 2 4 2 6 11 8 10 10 7 11 2 8 4 13 6 6 1 1 5 8 10 3 12 6
