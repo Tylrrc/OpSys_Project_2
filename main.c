@@ -237,7 +237,7 @@ void shuffle_deck(){
          vector_set(&Deck, swap, (void *)temp);
    }
 
-   if (LOGGING) {fprintf(fileptr, "DEALER: shuffles\n");}
+   if (LOGGING) {fprintf(fileptr, "\nDEALER: shuffles\n");}
 }
 
 /*
