@@ -39,7 +39,7 @@ To compile and run the program, perform the following commands:
   make
   ./RUN <SEED VALUE>
   ```
-where `<SEED VALUE>` is any positive integer (e.g., 1, 2, 3, etc.).
+where `<SEED VALUE>` is any integer (e.g.,-1, 0, 1, 2, 3, etc.).
 
 Upon completion of the run, a file named `log.txt` can be found, which contains output similar to that of the console output. 
 
