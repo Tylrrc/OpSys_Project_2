@@ -34,11 +34,11 @@ The results of five independent runs with five different seed values are contain
 ### Instructions
 
 To compile and run the program, perform the following commands:
-  ```
-  cd OpSys_Project_2/
-  make
-  ./RUN <SEED VALUE>
-  ```
+
+    cd OpSys_Project_2/
+    make
+    ./RUN <SEED VALUE>
+
 where `<SEED VALUE>` is any integer (e.g.,-1, 0, 1, 2, 3, etc.).
 
 Upon completion of the run, a file named `log.txt` can be found, which contains output similar to that of the console output. 
