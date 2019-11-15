@@ -400,8 +400,7 @@ int main(int argc, char *argv[]){
          // Wait for each player thread to finish
          for(int i = 0; i < THREAD_COUNT; ++i){
             if(pthread_join(threads[i],NULL)){
-               printf("FAILED TO JOIN THREAD");
-               return -1;
+               continue;
             }
          }
       }
