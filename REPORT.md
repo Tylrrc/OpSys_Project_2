@@ -25,7 +25,7 @@ Once a player has won, the `end_round()` function is invoked, which releases the
 Output is handled in two ways, namely console output and file output. The file output will be written to `log.txt`. If `log.txt` already exists, its contents will be overwritten with the new output. Otherwise, `log.txt` will be created.
 
 ##### vector.c and vector.h
-We felt that utilizing a vector-like container to house the deck, player hands, and players would simplify the work required to complete this project and also improve its readability. 
+We felt that utilizing a vector-like container to house the deck, player hands, and players would simplify the work required to complete this project and improve its overall readability. 
 
 ### Results
 
